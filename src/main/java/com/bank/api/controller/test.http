@@ -1,0 +1,101 @@
+
+### Получение всех юзеров
+GET http://localhost:8000/api/employee/users
+Accept: application/json
+
+### Добавление юзера
+POST http://localhost:8000/api/employee/users
+Content-Type: application/json
+
+{
+  "name":"Kate",
+  "lastname":"sdfaasdfassd"
+}
+
+### Получение баланса всех счетов юзера
+GET http://localhost:8000/api/employee/accounts?id=100
+Accept: application/json
+
+### Добавление нового счета для юзера
+POST http://localhost:8000/api/employee/accounts
+Content-Type: application/json
+
+{
+  "userId":1
+}
+
+### Получение списка всех карт юзера
+GET http://localhost:8000/api/users/cards?id=1
+Accept: application/json
+
+### Внесение средств по номеру карты
+POST http://localhost:8000/api/users/cards/refill
+Content-Type: application/json
+
+{
+  "cardNumber":"6743 8237 9032 8734",
+  "amount": 40000
+}
+
+
+
+### выпуск новой карты по счету
+POST http://localhost:8000/api/users/cards
+Content-Type: application/json
+
+{
+  "accountNumber": "64756938751523098125"
+}
+
+
+### добавление контрагента юзеру
+POST http://localhost:8000/api/users/contractors
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "name": "Kolya",
+  "corporation": true
+}
+
+### Получение списка контрагента юзера
+GET http://localhost:8000/api/users/contractors?id=123
+Accept: application/json
+
+### потверждение карты по номеру
+PUT http://localhost:8000/api/employee/cards
+Content-Type: application/json
+
+{
+  "cardNumber": "2966 5548 7112 8301"
+}
+
+### Добавление нового счета для контрагента
+POST http://localhost:8000/api/employee/accounts
+Content-Type: application/json
+
+{
+  "contractorId": 1
+}
+
+
+
+
+### перевод средств контрагенту по номеру карты
+POST http://localhost:8000/api/users/cards/transfer
+Content-Type: application/json
+
+{
+  "cardNumber": "6743 8237 9032 8734",
+  "contractorCardNumber": "4322 6543 6436 1309",
+  "amount": 54000
+}
+
+
+### Потверждение перевода по номеру транзакции
+PUT http://localhost:8000/api/employee/transactions
+Content-Type: application/json
+
+{
+  "transactionNumber": 12
+}
