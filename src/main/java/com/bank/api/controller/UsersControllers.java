@@ -1,6 +1,7 @@
 package com.bank.api.controller;
 
 import com.bank.api.entity.User;
+import com.bank.api.responses.MyInfoResponse;
 import com.bank.api.responses.SendMyResponses;
 import com.bank.api.service.UserService;
 import com.bank.api.service.UserServiceImpl;
@@ -32,10 +33,10 @@ public class UsersControllers implements HttpHandler {
             exchange.getResponseBody();
             User user = mapper.readValue(exchange.getRequestBody(), User.class);
             userService.save(user);
-            SendMyResponses.sendMyResponse(exchange,"Success", 200);
+
+            SendMyResponses.sendMyResponse(exchange, MyInfoResponse.getMyInfoResponseJSON("Success"), 200);
 
         }
-
         else {
             exchange.sendResponseHeaders(405, -1);// 405 Method Not Allowed
         }

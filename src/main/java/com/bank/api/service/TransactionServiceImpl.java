@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class TransactionServiceImpl implements TransactionService{
 
-    TransactionDAO transactionDAO = new TransactionDAOImpl();
+    TransactionDAO transactionDAO = TransactionDAOImpl.getInstance();
     AccountService accountService = new AccountServiceImpl();
     CardService cardService = new CardServiceImpl();
 

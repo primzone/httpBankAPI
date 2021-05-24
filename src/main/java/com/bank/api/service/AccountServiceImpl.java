@@ -11,7 +11,7 @@ import java.util.List;
 
 public class AccountServiceImpl implements AccountService{
 
-    AccountDAO accountDAO = new AccountDAOImpl();
+    AccountDAO accountDAO = AccountDAOImpl.getInstance();
 
     @Override
     public void addByUserId(long userId) throws MyGlobalException {

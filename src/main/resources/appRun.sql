@@ -73,8 +73,6 @@ alter table if exists card
     add constraint FK8v67eys6tqflsm6hrdgru2phu
         foreign key (account_id) references account;
 
-
-
 alter table if exists transaction
     add constraint FKqg9hvuj0jh5jkd3ejm3ibfn10
         foreign key (sender_account_id) references account;
@@ -122,5 +120,10 @@ insert into card(card_number, confirmation, account_id)
 VALUES ('2341 9832 4367 7777', true, 1);
 insert into card(card_number, confirmation, account_id)--карта для контрагента
 VALUES ('4322 6543 6436 1309', true, 4);
+insert into card(card_number, confirmation, account_id)
+VALUES ('1241 3257 1970 3427', false, 2);
 
 
+insert into transaction(amount, confirmation, sender_account_id,
+                        recipient_account_id, sender_card_number, recipient_card_number)
+VALUES (50000, false, 1, 4, '6743 8237 9032 8734', '4322 6543 6436 1309');

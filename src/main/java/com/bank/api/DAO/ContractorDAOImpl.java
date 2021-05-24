@@ -10,7 +10,16 @@ import java.util.List;
 
 public class ContractorDAOImpl implements ContractorDAO{
 
-    @Override
+    private static ContractorDAOImpl instance;
+    private ContractorDAOImpl(){}
+    public static ContractorDAOImpl getInstance(){
+        if(instance == null){
+            instance = new ContractorDAOImpl();
+        }
+        return instance;
+    }
+
+    @Override //добавить контрагента к юзеру
     public void addByUserId(long userId, String name, boolean corporation) throws SQLException {
 
         Connection connection = null;
@@ -87,6 +96,8 @@ public class ContractorDAOImpl implements ContractorDAO{
                     resultSet.getString("description")));
         }
 
+        connection.close();
+        preparedStatement.close();
         return contractorList;
 
     }

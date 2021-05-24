@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class CardServiceImpl implements CardService{
-    CardDAO cardDAO = new CardDAOImpl();
+    CardDAO cardDAO = CardDAOImpl.getInstance();
 
     @Override
     public List<Card> findAllCardsByUserId(long id) {

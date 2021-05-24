@@ -96,4 +96,38 @@ public class Transaction {
     public void setTransaction_number(long transaction_number) {
         this.transaction_number = transaction_number;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Transaction that = (Transaction) o;
+
+        if (id != that.id) return false;
+        if (Double.compare(that.amount, amount) != 0) return false;
+        if (confirmation != that.confirmation) return false;
+        if (recipient_account_id != that.recipient_account_id) return false;
+        if (sender_account_id != that.sender_account_id) return false;
+        if (transaction_number != that.transaction_number) return false;
+        if (recipient_card_number != null ? !recipient_card_number.equals(that.recipient_card_number) : that.recipient_card_number != null)
+            return false;
+        return sender_card_number != null ? sender_card_number.equals(that.sender_card_number) : that.sender_card_number == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = (int) (id ^ (id >>> 32));
+        temp = Double.doubleToLongBits(amount);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (confirmation ? 1 : 0);
+        result = 31 * result + (int) (recipient_account_id ^ (recipient_account_id >>> 32));
+        result = 31 * result + (int) (sender_account_id ^ (sender_account_id >>> 32));
+        result = 31 * result + (recipient_card_number != null ? recipient_card_number.hashCode() : 0);
+        result = 31 * result + (sender_card_number != null ? sender_card_number.hashCode() : 0);
+        result = 31 * result + (int) (transaction_number ^ (transaction_number >>> 32));
+        return result;
+    }
 }

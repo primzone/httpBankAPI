@@ -9,7 +9,7 @@ import java.util.List;
 
 public class UserServiceImpl implements UserService{
 
-    UserDAO userDAO = new UserDAOImpl();
+    UserDAO userDAO = UserDAOImpl.getInstance();
 
     @Override
     public List<User> findAll() {

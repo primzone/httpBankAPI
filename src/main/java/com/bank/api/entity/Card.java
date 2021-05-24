@@ -47,4 +47,24 @@ public class Card {
     public void setConfirmation(boolean confirmation) {
         this.confirmation = confirmation;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Card card = (Card) o;
+
+        if (id != card.id) return false;
+        if (confirmation != card.confirmation) return false;
+        return cardNumber != null ? cardNumber.equals(card.cardNumber) : card.cardNumber == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (cardNumber != null ? cardNumber.hashCode() : 0);
+        result = 31 * result + (confirmation ? 1 : 0);
+        return result;
+    }
 }

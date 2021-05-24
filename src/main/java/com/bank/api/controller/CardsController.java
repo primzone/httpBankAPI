@@ -33,20 +33,19 @@ public class CardsController implements HttpHandler {
            Map<String, String> queryMap = Utils.queryToMap(exchange.getRequestURI().getRawQuery());
 
            List<Card> cards = cardService.findAllCardsByUserId(Long.parseLong(queryMap.get("id")));
-           String s = mapper.writeValueAsString(cards);
-           SendMyResponses.sendMyResponse(exchange, s, 200);
+           String response = mapper.writeValueAsString(cards);
+           SendMyResponses.sendMyResponse(exchange, response, 200);
 
 
         }
-        else if ("POST".equals(exchange.getRequestMethod()) && exchange.getRequestURI().toString().equals("api/users/cards/refill")){
+        else if ("POST".equals(exchange.getRequestMethod()) && exchange.getRequestURI().toString().equals("/api/users/cards/refill")){
             //внесение средств на счет по карте (пополнение баланса)
 
             ObjectNode objectNode = mapper.readValue(exchange.getRequestBody(), ObjectNode.class);
 
             try{
                 cardService.refillAccountByCard(objectNode.get("cardNumber").asText(), objectNode.get("amount").asDouble());
-
-                SendMyResponses.sendMyResponse(exchange, "Success", 200);
+                SendMyResponses.sendMyResponse(exchange, MyInfoResponse.getMyInfoResponseJSON("Success"), 200);
             }
             catch (SQLException sqlException) {
 
@@ -62,7 +61,7 @@ public class CardsController implements HttpHandler {
             try{
                 cardService.addCardToAccount(objectNode.get("accountNumber").asText());
                // mapper.writeValueAsString(new MyResponse(true));
-                SendMyResponses.sendMyResponse(exchange, "Success", 200);
+                SendMyResponses.sendMyResponse(exchange, MyInfoResponse.getMyInfoResponseJSON("Success"), 200);
             }
             catch (MyGlobalException myGlobalException) {
 
@@ -79,9 +78,7 @@ public class CardsController implements HttpHandler {
             try {
                 cardService.confirmCard(objectNode.get("cardNumber").asText());
 
-                SendMyResponses.sendMyResponse(exchange,
-                        mapper.writeValueAsString(mapper.createObjectNode().put("Success", true)),
-                        200 );
+                SendMyResponses.sendMyResponse(exchange, MyInfoResponse.getMyInfoResponseJSON("Success"), 200 );
 
             }catch (SQLException sqlException) {
 

@@ -26,7 +26,7 @@ public class TransactionController implements HttpHandler {
 
                 transactionService.confirmTransaction(objectNode.get("transactionNumber").asLong());
 
-                SendMyResponses.sendMyResponse(exchange, mapper.writeValueAsString(new MyInfoResponse("Success")), 200);
+                SendMyResponses.sendMyResponse(exchange, MyInfoResponse.getMyInfoResponseJSON("Success"), 200);
             }catch (SQLException sqlException){
                 String info = mapper.writeValueAsString(new MyInfoResponse(sqlException.getMessage()));
                 SendMyResponses.sendMyResponse(exchange, info, 400);
@@ -43,7 +43,7 @@ public class TransactionController implements HttpHandler {
                         objectNode.get("contractorCardNumber").asText(),
                         objectNode.get("amount").asDouble());
 
-                SendMyResponses.sendMyResponse(exchange, "Success", 200);
+                SendMyResponses.sendMyResponse(exchange, MyInfoResponse.getMyInfoResponseJSON("Success"), 200);
 
             }catch (SQLException sqlException){
                 String info = mapper.writeValueAsString(new MyInfoResponse(sqlException.getMessage()));

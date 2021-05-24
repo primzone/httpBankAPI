@@ -30,7 +30,7 @@ public class ContractorController implements HttpHandler {
         if ("GET".equals(exchange.getRequestMethod())) {
            //список всех контрагентов юзера
             Map<String, String> queryMap = Utils.queryToMap(exchange.getRequestURI().getRawQuery());
-        //mapper.writeValueAsString(mapper.createObjectNode().put("Success", true));
+            //mapper.writeValueAsString(mapper.createObjectNode().put("Success", true));
 
             try {
                 List<Contractor> contractorList = contractorService.findAllByUserId(Long.parseLong(queryMap.get("id")));
@@ -54,7 +54,7 @@ public class ContractorController implements HttpHandler {
                         objectNode.get("name").asText(),
                         objectNode.get("corporation").asBoolean());
 
-                SendMyResponses.sendMyResponse(exchange, "Success", 200);
+                SendMyResponses.sendMyResponse(exchange, MyInfoResponse.getMyInfoResponseJSON("Success"), 200);
             }
             catch(SQLException sqlException){
                 String info = mapper.writeValueAsString(new MyInfoResponse(sqlException.getMessage()));

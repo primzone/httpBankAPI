@@ -9,14 +9,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ContractorServiceImpl implements ContractorService{
-    ContractorDAO contractorDAO = new ContractorDAOImpl();
+    ContractorDAO contractorDAO = ContractorDAOImpl.getInstance();
 
 
     @Override
     public void addByUserId(long userId, String name, boolean corporation) throws SQLException {
 
         contractorDAO.addByUserId(userId, name, corporation);
-
 
     }
 

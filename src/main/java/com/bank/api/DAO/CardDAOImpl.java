@@ -13,6 +13,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CardDAOImpl implements CardDAO{
+
+    private static CardDAOImpl instance;
+    private CardDAOImpl(){}
+    public static CardDAOImpl getInstance(){
+        if(instance == null){
+            instance = new CardDAOImpl();
+        }
+        return instance;
+    }
+
     @Override
     public List<Card> findAllCardsByUserId(long id) {
 
@@ -113,7 +123,8 @@ public class CardDAOImpl implements CardDAO{
             preparedStatement.setString(1, cardNumber);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-
+            if (!resultSet.getBoolean("confirmation"))
+                throw new MyGlobalException("Card" + cardNumber + " not confirmed");
 
         }catch (SQLException sqlException){
             sqlException.printStackTrace();

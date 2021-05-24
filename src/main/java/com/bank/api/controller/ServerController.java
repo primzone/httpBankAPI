@@ -13,11 +13,10 @@ public class ServerController {
         server.createContext("/api/employee/cards", new CardsController());//подтверждение карты
         server.createContext("/api/employee/contractors/accounts", new AccountsController());// добавление счета контрагенту
         server.createContext("/api/employee/transactions", new TransactionController());// подтверждение транзакции
-        server.createContext("/api/users/cards", new CardsController());// выпуск карты и
         server.createContext("/api/users/cards/refill", new CardsController());//просмотр баланса
+        server.createContext("/api/users/cards", new CardsController());// выпуск карты и
         server.createContext("/api/users/contractors", new ContractorController());//добавление и просмотр контрагентов
         server.createContext("/api/users/cards/transfer", new TransactionController());// перевод контрагенту средств
-
 
 
         server.setExecutor(null); // creates a default executor

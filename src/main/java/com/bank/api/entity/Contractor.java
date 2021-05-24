@@ -19,6 +19,12 @@ public class Contractor {
         this.description = description;
     }
 
+    public Contractor(long id, String name, boolean corporation) {
+        this.id = id;
+        this.name = name;
+        this.corporation = corporation;
+    }
+
     public Contractor(long id, String name, boolean corporation, String description) {
         this.id = id;
         this.name = name;
@@ -56,5 +62,27 @@ public class Contractor {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Contractor that = (Contractor) o;
+
+        if (id != that.id) return false;
+        if (corporation != that.corporation) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        return description != null ? description.equals(that.description) : that.description == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (corporation ? 1 : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        return result;
     }
 }

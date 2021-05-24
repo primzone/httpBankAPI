@@ -35,15 +35,13 @@ public class AccountsController implements HttpHandler {
 
         }
         else if ("POST".equals(exchange.getRequestMethod()) && exchange.getRequestURI().toString().equals("api/employee/contractors/accounts")){
-            //кароче нужно удалить эту обработку и делать все в одной проверив какое поле пришло из реквеста
 
             ObjectNode objectNode = mapper.readValue(exchange.getRequestBody(), ObjectNode.class);
-
             Account account = new Account(Utils.generateAccountNumber());
             long userId = objectNode.get("contr").asLong();
             try {
                 accountService.addByUserId(userId);
-                SendMyResponses.sendMyResponse(exchange, "Success", 200);
+                SendMyResponses.sendMyResponse(exchange, MyInfoResponse.getMyInfoResponseJSON("Success"), 200);
             } catch (MyGlobalException myGlobalException) {
 
                 String info = mapper.writeValueAsString(new MyInfoResponse(myGlobalException.getMessage()));
@@ -61,7 +59,7 @@ public class AccountsController implements HttpHandler {
                 long userId = objectNode.get("userId").asLong();
                 try {
                     accountService.addByUserId(userId);
-                    SendMyResponses.sendMyResponse(exchange, "Success", 200);
+                    SendMyResponses.sendMyResponse(exchange, MyInfoResponse.getMyInfoResponseJSON("Success"), 200);
                 } catch (SQLException sqlException) {
 
                     String info = mapper.writeValueAsString(new MyInfoResponse(sqlException.getMessage()));
@@ -73,7 +71,7 @@ public class AccountsController implements HttpHandler {
                 long contractorId = objectNode.get("contractorId").asLong();
                 try {
                     accountService.addByContractorId(contractorId);
-                    SendMyResponses.sendMyResponse(exchange, "Success", 200);
+                    SendMyResponses.sendMyResponse(exchange, MyInfoResponse.getMyInfoResponseJSON("Success"), 200);
                 } catch (SQLException sqlException) {
 
                     String info = mapper.writeValueAsString(new MyInfoResponse(sqlException.getMessage()));

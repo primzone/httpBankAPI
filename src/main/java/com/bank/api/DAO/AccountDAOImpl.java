@@ -18,6 +18,15 @@ import java.util.List;
 
 public class AccountDAOImpl implements AccountDAO{
 
+    private static AccountDAOImpl instance;
+    private AccountDAOImpl(){}
+    public static AccountDAOImpl getInstance(){
+        if(instance == null){
+            instance = new AccountDAOImpl();
+        }
+        return instance;
+    }
+
 
     @Override//доабвление нового счета юзеру
     public void addByUserId(long userId, String generateAccountNumber) throws MyGlobalException {
@@ -76,7 +85,7 @@ public class AccountDAOImpl implements AccountDAO{
         }
     }
 
-    @Override
+    @Override //найти счет по номеру карты
     public long findAccountIdByCardNumber(String cardNumber) throws SQLException {
 
         try(Connection connection = new MyConnection().getConnection();
@@ -96,7 +105,7 @@ public class AccountDAOImpl implements AccountDAO{
 
     }
 
-    @Override
+    @Override //вернуть баланс по id счета
     public double getAccountBalanceById(long senderAccountId) throws SQLException {
 
 

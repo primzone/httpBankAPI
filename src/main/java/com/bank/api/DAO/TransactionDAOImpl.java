@@ -10,6 +10,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class TransactionDAOImpl implements TransactionDAO{
+
+    private static TransactionDAOImpl instance;
+    private TransactionDAOImpl(){}
+    public static TransactionDAOImpl getInstance(){
+        if(instance == null){
+            instance = new TransactionDAOImpl();
+        }
+        return instance;
+    }
+
     @Override
     public void moneyTransferToContractorAccount(long senderAccountId,
                                                  long recipientAccountId,
@@ -82,10 +92,10 @@ public class TransactionDAOImpl implements TransactionDAO{
             connection = new MyConnection().getConnection();
             connection.setAutoCommit(false);
             preparedStatement = connection.prepareStatement(
-                    "update transaction set confirmation = true where id = ?");
+                    "update transaction set confirmation = true where transaction_number = ?");
 
 
-            preparedStatement.setLong(1, transaction.getId());
+            preparedStatement.setLong(1, transaction.getTransaction_number());
             preparedStatement.executeUpdate();
 
             preparedStatement = connection.prepareStatement(
